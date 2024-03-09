@@ -12,7 +12,7 @@ namespace WPF_LoginForm.Repositories
         private readonly string _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Server=(local); Database=MVVMLoginDb; Integrated Security=true";
+            _connectionString = "Server=34.134.82.88; Database=sistema_empleados; User ID=admin; Password=admin1235711$!;";
         }
         protected SqlConnection GetConnection()
         {
