@@ -24,5 +24,20 @@ namespace WPF_LoginForm.Views
         {
             InitializeComponent();
         }
+
+        public void limpiar()
+        {
+            nombre_txt.Clear();
+            apellido_txt.Clear();
+            cedula_txt.Clear();
+            correo_txt.Clear();
+            salario_txt.Clear();
+            cargo_txt.Clear();
+        }
+
+        private void btnLimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            limpiar();
+        }
     }
 }

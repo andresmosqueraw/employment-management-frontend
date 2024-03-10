@@ -7,6 +7,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Image Source="/Images/logo.png"/>
+        <Label Content="Empleados CRUD" HorizontalAlignment="Center" Margin="0,65,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Nombre" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="140,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Apellido" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="apellido_txt" HorizontalAlignment="Left" Height="23" Margin="140,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Cedula" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="cedula_txt" HorizontalAlignment="Left" Height="23" Margin="140,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Correo" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="correo_txt" HorizontalAlignment="Left" Height="23" Margin="140,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Salario" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="salario_txt" HorizontalAlignment="Left" Height="23" Margin="140,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Cargo" HorizontalAlignment="Left" Margin="50,350,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="cargo_txt" HorizontalAlignment="Left" Height="23" Margin="140,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <DataGrid x:Name="DataGrid" HorizontalAlignment="Left" Height="200" Margin="300,100,0,0" VerticalAlignment="Top" Width="400"/>
+
+        <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="100,400,0,0" VerticalAlignment="Top" Width="85" Height="40"/>
+        <Button x:Name="btnEditar" Content="Editar" HorizontalAlignment="Left" Margin="280,400,0,0" VerticalAlignment="Top" Width="85" Height="40"/>
+        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="470,400,0,0" VerticalAlignment="Top" Width="85" Height="40"/>
+        <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="650,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnLimpiar_Click"/>
     </Grid>
 </UserControl>
