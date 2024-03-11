@@ -38,6 +38,7 @@ namespace WPF_LoginForm.Views
             correo_txt.Clear();
             salario_txt.Clear();
             cargo_txt.Clear();
+            search_txt.Clear();
         }
 
         public void CargarDatos()
@@ -120,6 +121,29 @@ namespace WPF_LoginForm.Views
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+        }
+
+        private void btnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("delete from Empleados where empleado_id = " + search_txt.Text + " ", con);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Empleado ha sido eliminado", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                con.Close();
+                limpiar();
+                CargarDatos();
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("No fue eliminado" + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
         }
     }
 }

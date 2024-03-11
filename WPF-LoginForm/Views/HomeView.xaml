@@ -21,11 +21,14 @@
         <Label Content="Cargo" HorizontalAlignment="Left" Margin="50,350,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="cargo_txt" HorizontalAlignment="Left" Height="23" Margin="140,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
+        <Label Content="ID" HorizontalAlignment="Left" Margin="400,336,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Height="24" Margin="452,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
         <DataGrid x:Name="datagrid" HorizontalAlignment="Left" Height="200" Margin="300,100,0,0" VerticalAlignment="Top" Width="400"/>
 
         <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="100,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnAgregar_Click"/>
         <Button x:Name="btnEditar" Content="Editar" HorizontalAlignment="Left" Margin="280,400,0,0" VerticalAlignment="Top" Width="85" Height="40"/>
-        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="470,400,0,0" VerticalAlignment="Top" Width="85" Height="40"/>
+        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="470,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnEliminar_Click"/>
         <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="650,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnLimpiar_Click"/>
     </Grid>
 </UserControl>
