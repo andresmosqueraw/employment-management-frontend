@@ -145,5 +145,62 @@ namespace WPF_LoginForm.Views
                 con.Close();
             }
         }
+
+        private void btnObtener_Click(object sender, RoutedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("select * from Empleados where empleado_id = " + search_txt.Text + " ", con);
+            try
+            {
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    nombre_txt.Text = dr["empleado_nombre"].ToString();
+                    apellido_txt.Text = dr["empleado_apellido"].ToString();
+                    cedula_txt.Text = dr["empleado_cedula"].ToString();
+                    correo_txt.Text = dr["empleado_email"].ToString();
+                    salario_txt.Text = dr["empleado_salario"].ToString();
+                    cargo_txt.Text = dr["empleado_cargo"].ToString();
+                }
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("No se pudo obtener los datos" + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }   
+        }
+
+        private void btnEditar_Click(object sender, RoutedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("update Empleados set empleado_nombre = @nombre, empleado_apellido = @apellido, empleado_cedula = @cedula, empleado_email = @correo, empleado_salario = @salario, empleado_cargo = @cargo where empleado_id = " + search_txt.Text + " ", con);
+            try
+            {
+                cmd.Parameters.AddWithValue("@nombre", nombre_txt.Text);
+                cmd.Parameters.AddWithValue("@apellido", apellido_txt.Text);
+                cmd.Parameters.AddWithValue("@cedula", cedula_txt.Text);
+                cmd.Parameters.AddWithValue("@correo", correo_txt.Text);
+                cmd.Parameters.AddWithValue("@salario", decimal.Parse(salario_txt.Text));
+                cmd.Parameters.AddWithValue("@cargo", cargo_txt.Text);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Empleado ha sido actualizado", "Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                con.Close();
+                limpiar();
+                CargarDatos();
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("No fue actualizado" + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
     }
 }

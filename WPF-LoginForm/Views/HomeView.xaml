@@ -27,8 +27,9 @@
         <DataGrid x:Name="datagrid" HorizontalAlignment="Left" Height="200" Margin="300,100,0,0" VerticalAlignment="Top" Width="400"/>
 
         <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="100,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnAgregar_Click"/>
-        <Button x:Name="btnEditar" Content="Editar" HorizontalAlignment="Left" Margin="280,400,0,0" VerticalAlignment="Top" Width="85" Height="40"/>
+        <Button x:Name="btnEditar" Content="Editar" HorizontalAlignment="Left" Margin="280,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnEditar_Click"/>
         <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="470,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnEliminar_Click"/>
         <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="650,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnLimpiar_Click"/>
+        <Button x:Name="btnObtener" Content="Obtener" HorizontalAlignment="Left" Margin="650,329,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnObtener_Click"/>
     </Grid>
 </UserControl>
