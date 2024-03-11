@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace WPF_LoginForm.Views
 {
@@ -23,7 +25,10 @@ namespace WPF_LoginForm.Views
         public HomeView()
         {
             InitializeComponent();
+            CargarDatos();
         }
+
+        SqlConnection con = new SqlConnection("Server=34.134.82.88; Database=sistema_empleados; User ID=admin; Password=admin1235711$!;");
 
         public void limpiar()
         {
@@ -35,9 +40,25 @@ namespace WPF_LoginForm.Views
             cargo_txt.Clear();
         }
 
+        public void CargarDatos()
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("select * from Empleados", con);
+            DataTable dt = new DataTable();
+            SqlDataReader dr = cmd.ExecuteReader();
+            dt.Load(dr);
+            con.Close();
+            datagrid.ItemsSource = dt.DefaultView;
+        }   
+
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)
         {
             limpiar();
+        }
+
+        private void btnAgregar_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
