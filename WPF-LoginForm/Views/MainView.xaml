@@ -98,7 +98,7 @@
                         
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Customers" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Style="{StaticResource menuButtonText}"><Run Language="en-gb" Text="Departamentos"/></TextBlock>
                         </StackPanel>
                         
                     </RadioButton>

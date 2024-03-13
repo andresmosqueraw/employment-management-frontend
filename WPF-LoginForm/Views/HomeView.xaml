@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_LoginForm.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="650" Width="1100">
 
     <UserControl.Resources>
         <Style x:Key="FocusVisual">
@@ -68,7 +68,7 @@
 
 
     <Grid>
-        <Label Content="Empleados CRUD" HorizontalAlignment="Center" Margin="0,65,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <Label Content="Empleados" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
         <Label Content="Nombre" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="140,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Apellido" FontSize="16" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Foreground="White"/>
@@ -82,15 +82,15 @@
         <Label Content="Cargo" FontSize="16" HorizontalAlignment="Left" Margin="50,350,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="cargo_txt" HorizontalAlignment="Left" Height="23" Margin="140,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
-        <Label Content="ID" FontSize="16" HorizontalAlignment="Left" Margin="520,357,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="3.16,1.263"/>
-        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Height="24" Margin="555,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="ID" FontSize="16" HorizontalAlignment="Left" Margin="610,404,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="3.16,1.263"/>
+        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Height="24" Margin="635,408,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
-        <DataGrid x:Name="datagrid" HorizontalAlignment="Left" Height="242" Margin="300,100,0,0" VerticalAlignment="Top" Width="465"/>
+        <DataGrid x:Name="datagrid" HorizontalAlignment="Left" Height="281" Margin="300,100,0,0" VerticalAlignment="Top" Width="670"/>
 
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="100,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnAgregar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEditar" Content="Editar" HorizontalAlignment="Left" Margin="300,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnEditar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="500,400,0,0" VerticalAlignment="Top" Width="84" Height="40" Click="btnEliminar_Click"  Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="680,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnLimpiar_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnObtener" Content="Obtener" HorizontalAlignment="Left" Margin="680,349,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnObtener_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnAgregar" Content="Agregar Empleado" HorizontalAlignment="Left" Margin="50,445,0,0" VerticalAlignment="Top" Width="150" Height="40" Click="btnAgregar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEditar" Content="Editar Empleado" HorizontalAlignment="Left" Margin="250,445,0,0" VerticalAlignment="Top" Width="145" Height="40" Click="btnEditar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEliminar" Content="Eliminar Empleado" HorizontalAlignment="Left" Margin="450,445,0,0" VerticalAlignment="Top" Width="145" Height="40" Click="btnEliminar_Click"  Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnLimpiar" Content="Limpiar Campos" HorizontalAlignment="Left" Margin="630,445,0,0" VerticalAlignment="Top" Width="135" Height="40" Click="btnLimpiar_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnObtener" Content="Obtener Campos" HorizontalAlignment="Left" Margin="760,400,0,0" VerticalAlignment="Top" Width="140" Height="40" Click="btnObtener_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
     </Grid>
 </UserControl>
