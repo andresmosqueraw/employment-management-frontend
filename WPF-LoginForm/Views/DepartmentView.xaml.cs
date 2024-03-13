@@ -150,7 +150,7 @@ namespace WPF_LoginForm.Views
 
         private void updateBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (existId())
+            if (existId() && isValid())
             {
                 int depId = Convert.ToInt32(search_txt.Text);
                 long telDep = Convert.ToInt64(telDep_txt.Text);
