@@ -6,30 +6,91 @@
              xmlns:local="clr-namespace:WPF_LoginForm.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+
+        <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#EAB01E"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#EAB01E"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#F1CA68"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#F1CA68"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+
     <Grid>
-        <Label Content="Empleados CRUD" HorizontalAlignment="Center" Margin="0,65,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Nombre" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Empleados CRUD" HorizontalAlignment="Center" Margin="0,65,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <Label Content="Nombre" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="140,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Apellido" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Apellido" FontSize="16" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="apellido_txt" HorizontalAlignment="Left" Height="23" Margin="140,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Cedula" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Cedula" FontSize="16" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="cedula_txt" HorizontalAlignment="Left" Height="23" Margin="140,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Correo" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Correo"  FontSize="16" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="correo_txt" HorizontalAlignment="Left" Height="23" Margin="140,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Salario" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Salario" FontSize="16" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="salario_txt" HorizontalAlignment="Left" Height="23" Margin="140,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Cargo" HorizontalAlignment="Left" Margin="50,350,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Cargo" FontSize="16" HorizontalAlignment="Left" Margin="50,350,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="cargo_txt" HorizontalAlignment="Left" Height="23" Margin="140,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
-        <Label Content="ID" HorizontalAlignment="Left" Margin="400,336,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Height="24" Margin="452,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="ID" FontSize="16" HorizontalAlignment="Left" Margin="520,357,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="3.16,1.263"/>
+        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Height="24" Margin="555,357,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
-        <DataGrid x:Name="datagrid" HorizontalAlignment="Left" Height="200" Margin="300,100,0,0" VerticalAlignment="Top" Width="400"/>
+        <DataGrid x:Name="datagrid" HorizontalAlignment="Left" Height="242" Margin="300,100,0,0" VerticalAlignment="Top" Width="465"/>
 
-        <Button x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="100,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnAgregar_Click"/>
-        <Button x:Name="btnEditar" Content="Editar" HorizontalAlignment="Left" Margin="280,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnEditar_Click"/>
-        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="470,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnEliminar_Click"/>
-        <Button x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="650,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnLimpiar_Click"/>
-        <Button x:Name="btnObtener" Content="Obtener" HorizontalAlignment="Left" Margin="650,329,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnObtener_Click"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnAgregar" Content="Agregar" HorizontalAlignment="Left" Margin="100,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnAgregar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEditar" Content="Editar" HorizontalAlignment="Left" Margin="300,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnEditar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="500,400,0,0" VerticalAlignment="Top" Width="84" Height="40" Click="btnEliminar_Click"  Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnLimpiar" Content="Limpiar" HorizontalAlignment="Left" Margin="680,400,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnLimpiar_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnObtener" Content="Obtener" HorizontalAlignment="Left" Margin="680,349,0,0" VerticalAlignment="Top" Width="85" Height="40" Click="btnObtener_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
     </Grid>
 </UserControl>
