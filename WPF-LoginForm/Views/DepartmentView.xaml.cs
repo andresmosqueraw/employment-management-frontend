@@ -125,70 +125,96 @@ namespace WPF_LoginForm.Views
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            int depId = Convert.ToInt32(search_txt.Text);
-            con.Open();
-            SqlCommand cmd = new SqlCommand("DELETE FROM Departamentos WHERE departamento_id =" +depId + " ", con);
-            try
+            if (existId())
             {
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Departamento eliminado exitosamente", "Eliminado", MessageBoxButton.OK, MessageBoxImage.Information);
-                con.Close();
-                clearData();
-                LoadGrid();
-                con.Close();
-            } catch (SqlException ex)
-            {
-                MessageBox.Show("No eliminado correctamente" + ex.Message);
-            } finally { con.Close(); }
+                int depId = Convert.ToInt32(search_txt.Text);
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Departamentos WHERE departamento_id =" + depId + " ", con);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Departamento eliminado exitosamente", "Eliminado", MessageBoxButton.OK, MessageBoxImage.Information);
+                    con.Close();
+                    clearData();
+                    LoadGrid();
+                    con.Close();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("No eliminado correctamente" + ex.Message);
+                }
+                finally { con.Close(); }
+            }
+            
         }
 
         private void updateBtn_Click(object sender, RoutedEventArgs e)
         {
-            int depId = Convert.ToInt32(search_txt.Text);
-            long telDep = Convert.ToInt64(telDep_txt.Text);
-            con.Open();
-            SqlCommand cmd = new SqlCommand("UPDATE Departamentos SET departamento_nombre = '"+ nombreDep_txt.Text + "', departamento_descripcion = '" + descripDep_txt.Text + "', departamento_ubicacion = '" + ubicDep_txt.Text + "', departamento_telefono = '" + telDep + "', departamento_email = '"+ emailDep_txt.Text +"' WHERE departamento_id = '"+depId+"' ", con);
-            try
+            if (existId())
             {
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Departamento actualizado correctamente", "Actualizar", MessageBoxButton.OK, MessageBoxImage.Information);
-            } catch(SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            } finally
-            {
-                con.Close();
-                clearData();
-                LoadGrid();
+                int depId = Convert.ToInt32(search_txt.Text);
+                long telDep = Convert.ToInt64(telDep_txt.Text);
+                con.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE Departamentos SET departamento_nombre = '" + nombreDep_txt.Text + "', departamento_descripcion = '" + descripDep_txt.Text + "', departamento_ubicacion = '" + ubicDep_txt.Text + "', departamento_telefono = '" + telDep + "', departamento_email = '" + emailDep_txt.Text + "' WHERE departamento_id = '" + depId + "' ", con);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Departamento actualizado correctamente", "Actualizar", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                    clearData();
+                    LoadGrid();
+                }
             }
+            
+        }
+
+        private bool existId()
+        {
+            if (search_txt.Text == string.Empty)
+            {
+                MessageBox.Show("Ingrese primero un ID para actualizar, eliminar u obtener los datos", "Actualizar o Eliminar ID", MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
         }
 
         private void obtenerBtn_Click(object sender, RoutedEventArgs e)
         {
-            int depId = Convert.ToInt32(search_txt.Text);
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Departamentos WHERE departamento_id = " + depId + " ", con);
-            try
+            if (existId())
             {
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                int depId = Convert.ToInt32(search_txt.Text);
+                con.Open();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Departamentos WHERE departamento_id = " + depId + " ", con);
+                try
                 {
-                    nombreDep_txt.Text = dr["departamento_nombre"].ToString();
-                    descripDep_txt.Text = dr["departamento_descripcion"].ToString();
-                    ubicDep_txt.Text = dr["departamento_ubicacion"].ToString();
-                    telDep_txt.Text = dr["departamento_telefono"].ToString();
-                    emailDep_txt.Text = dr["departamento_email"].ToString();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        nombreDep_txt.Text = dr["departamento_nombre"].ToString();
+                        descripDep_txt.Text = dr["departamento_descripcion"].ToString();
+                        ubicDep_txt.Text = dr["departamento_ubicacion"].ToString();
+                        telDep_txt.Text = dr["departamento_telefono"].ToString();
+                        emailDep_txt.Text = dr["departamento_email"].ToString();
+                    }
+                    con.Close();
                 }
-                con.Close();
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("No se pudo obtener los datos" + ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("No se pudo obtener los datos" + ex.Message);
-            }
-            finally
-            {
-                con.Close();
-            }
+            
         }
     }
 }

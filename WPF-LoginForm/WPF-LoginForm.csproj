@@ -73,8 +73,8 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelCommand.cs" />
-    <Compile Include="Views\CustomerView.xaml.cs">
-      <DependentUpon>CustomerView.xaml</DependentUpon>
+    <Compile Include="Views\DepartmentView.xaml.cs">
+      <DependentUpon>DepartmentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -101,7 +101,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CustomerView.xaml">
+    <Page Include="Views\DepartmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,6 +136,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="fonts\Lexend-Black.ttf" />
+    <Resource Include="fonts\Lexend-Bold.ttf" />
+    <Resource Include="fonts\Lexend-ExtraBold.ttf" />
+    <Resource Include="fonts\Lexend-ExtraLight.ttf" />
+    <Resource Include="fonts\Lexend-Light.ttf" />
+    <Resource Include="fonts\Lexend-Medium.ttf" />
+    <Resource Include="fonts\Lexend-Regular.ttf" />
+    <Resource Include="fonts\Lexend-SemiBold.ttf" />
+    <Resource Include="fonts\Lexend-Thin.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
