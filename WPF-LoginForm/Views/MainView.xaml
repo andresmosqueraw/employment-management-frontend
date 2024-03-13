@@ -23,7 +23,7 @@
             <local:HomeView/>
         </DataTemplate>
         
-        <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
+        <DataTemplate DataType="{x:Type viewModel:DepartmentsViewModel}">
             <local:CustomerView/>
         </DataTemplate>
 
@@ -65,16 +65,17 @@
                     <!--Logo-->
                     <StackPanel Orientation="Horizontal"
                                 Height="35"
-                                Margin="15,25,0,40">
+                                Margin="15,25,10,40">
 
                         <Image Source="/Images/Logo.png" Height="30"/>
-                        <TextBlock Text="RJ CODE"
-                                   Foreground="{StaticResource titleColor2}"
-                                   FontSize="20"
+                        <TextBlock 
+                                   Foreground="White"
+                                   FontSize="18"
                                    FontFamily="Montserrat"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
-                                   Margin="10,0,0,0"/>
+                                   Margin="0,0,20,0"><Run Text="Sistema de "/><Run Text="Empleados"/>
+                        </TextBlock>
                     </StackPanel>
 
                     <!--Menu Buttons-->
@@ -85,7 +86,7 @@
                         
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Empleados" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                         
                     </RadioButton>
@@ -180,12 +181,12 @@
                                           Foreground="{StaticResource titleColor2}"
                                           Margin="35,0,10,0"/>
 
-                            <TextBlock Text="{Binding Caption}"
+                            <TextBlock
                                        Foreground="{StaticResource titleColor2}"
                                        FontSize="16"
                                        FontFamily="Montserrat"
                                        FontWeight="Medium"
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"><Run Language="en-gb" Text="Empleados"/></TextBlock>
                         </StackPanel>
 
                         <!--User options-->

@@ -87,7 +87,7 @@ namespace WPF_LoginForm.ViewModels
         }
         private void ExecuteShowCustomerViewCommand(object obj)
         {
-            CurrentChildView = new CustomerViewModel();
+            CurrentChildView = new DepartmentsViewModel();
             Caption = "Customers";
             Icon = IconChar.UserGroup;
         }
