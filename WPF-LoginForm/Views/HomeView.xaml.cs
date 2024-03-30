@@ -44,13 +44,23 @@ namespace WPF_LoginForm.Views
         public void CargarDatos()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("select * from Empleados", con);
+            // Especifica las columnas explícitamente y coloca 'empleado_id' primero.
+            SqlCommand cmd = new SqlCommand("SELECT empleado_id, empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id FROM Empleados", con);
             DataTable dt = new DataTable();
             SqlDataReader dr = cmd.ExecuteReader();
             dt.Load(dr);
             con.Close();
-            datagrid.ItemsSource = dt.DefaultView;
-        }   
+
+            // Usar LINQ para contar las filas en el DataTable.
+            int rowCount = dt.AsEnumerable().Count(); // Uso de LINQ aquí.
+
+            // Actualizar el contenido del Label para mostrar el recuento de filas.
+            lblCount.Content = $"Total de empleados: {rowCount}";
+
+            // Convertir el DataTable en una DataView y asignarla al DataGrid.
+            DataView view = dt.DefaultView;
+            datagrid.ItemsSource = view;
+        }
 
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)
         {

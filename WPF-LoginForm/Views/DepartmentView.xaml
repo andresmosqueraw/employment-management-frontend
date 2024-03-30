@@ -68,6 +68,7 @@
     </UserControl.Resources>
 
     <Grid>
+        <Label x:Name="lblCount" Content="" HorizontalAlignment="Left" Margin="193,19,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <Label Content="Departamentos" HorizontalAlignment="Left" Margin="420,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="24" Foreground="White"/>
         <Label Content="Nombre del Departamento" HorizontalAlignment="Left" Margin="26,79,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White"/>
         <Label Content="Descripción" HorizontalAlignment="Left" Margin="26,124,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White"/>

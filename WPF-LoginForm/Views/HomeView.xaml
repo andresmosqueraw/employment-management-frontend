@@ -68,6 +68,7 @@
 
 
     <Grid>
+        <Label x:Name="lblCount" Content="" HorizontalAlignment="Left" Margin="195,50,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <Label Content="Empleados" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
         <Label Content="Nombre" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="140,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
