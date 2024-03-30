@@ -65,6 +65,22 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="RoundedTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid>
@@ -77,14 +93,14 @@
         <Label Content="Correo electrónico" HorizontalAlignment="Left" Margin="31,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White"/>
         <Label Content="ID a eliminar, actualizar o &#xD;&#xA;Obtener" HorizontalAlignment="Left" Margin="31,373,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="50" Width="238"/>
 
-        <TextBox x:Name="nombreDep_txt" HorizontalAlignment="Left" Margin="269,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"/>
-        <TextBox x:Name="descripDep_txt" HorizontalAlignment="Left" Margin="269,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"/>
-        <TextBox x:Name="ubicDep_txt" HorizontalAlignment="Left" Margin="269,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"/>
-        <TextBox x:Name="telDep_txt" HorizontalAlignment="Left" Margin="269,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"/>
-        <TextBox x:Name="emailDep_txt" HorizontalAlignment="Left" Margin="269,317,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"/>
-        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Margin="269,380,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"/>
+        <TextBox x:Name="nombreDep_txt" HorizontalAlignment="Left" Margin="269,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="descripDep_txt" HorizontalAlignment="Left" Margin="269,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="ubicDep_txt" HorizontalAlignment="Left" Margin="269,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="telDep_txt" HorizontalAlignment="Left" Margin="269,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="emailDep_txt" HorizontalAlignment="Left" Margin="269,317,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Margin="269,380,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
 
-        <DataGrid x:Name="dataDep_grid" Margin="435,84,118,160"/>
+        <DataGrid x:Name="dataDep_grid" Margin="435,84,118,160" />
 
         <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="insertBtn" Content="Agregar Departamento" HorizontalAlignment="Left" Margin="26,495,0,0" VerticalAlignment="Top" Height="45" Width="177" Click="insertBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
         <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="updateBtn" Content="Actualizar Departamento" HorizontalAlignment="Left" Margin="231,495,0,0" VerticalAlignment="Top" Height="45" Width="190" Click="updateBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>

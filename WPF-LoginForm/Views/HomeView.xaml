@@ -64,6 +64,21 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="RoundedTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
 
@@ -71,20 +86,20 @@
         <Label x:Name="lblCount" Content="" HorizontalAlignment="Left" Margin="195,50,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <Label Content="Empleados" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
         <Label Content="Nombre" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="140,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="140,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Style="{DynamicResource RoundedTextBoxStyle}"/>
         <Label Content="Apellido" FontSize="16" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="apellido_txt" HorizontalAlignment="Left" Height="23" Margin="140,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="apellido_txt" HorizontalAlignment="Left" Height="23" Margin="140,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Style="{DynamicResource RoundedTextBoxStyle}"/>
         <Label Content="Cedula" FontSize="16" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="cedula_txt" HorizontalAlignment="Left" Height="23" Margin="140,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="cedula_txt" HorizontalAlignment="Left" Height="23" Margin="140,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Style="{DynamicResource RoundedTextBoxStyle}"/>
         <Label Content="Correo"  FontSize="16" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="correo_txt" HorizontalAlignment="Left" Height="23" Margin="140,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="correo_txt" HorizontalAlignment="Left" Height="23" Margin="140,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Style="{DynamicResource RoundedTextBoxStyle}"/>
         <Label Content="Salario" FontSize="16" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="salario_txt" HorizontalAlignment="Left" Height="23" Margin="140,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="salario_txt" HorizontalAlignment="Left" Height="23" Margin="140,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Style="{DynamicResource RoundedTextBoxStyle}"/>
         <Label Content="Cargo" FontSize="16" HorizontalAlignment="Left" Margin="50,350,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="cargo_txt" HorizontalAlignment="Left" Height="23" Margin="140,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="cargo_txt" HorizontalAlignment="Left" Height="23" Margin="140,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Style="{DynamicResource RoundedTextBoxStyle}"/>
 
         <Label Content="ID" FontSize="16" HorizontalAlignment="Left" Margin="610,404,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="3.16,1.263"/>
-        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Height="24" Margin="635,408,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Height="24" Margin="635,408,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  Style="{DynamicResource RoundedTextBoxStyle}"/>
 
         <DataGrid x:Name="datagrid" HorizontalAlignment="Left" Height="281" Margin="300,100,0,0" VerticalAlignment="Top" Width="670"/>
 
