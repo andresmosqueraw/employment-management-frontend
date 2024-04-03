@@ -30,6 +30,7 @@ namespace WPF_LoginForm.Views
         SqlConnection con = new SqlConnection("Data Source=34.134.82.88;Database=sistema_empleados;Persist Security Info=True; User ID = admin; Password=admin1235711$!");
         public void clearData()
         {
+            idDep_txt.Clear();
             nombreDep_txt.Clear();
             descripDep_txt.Clear();
             ubicDep_txt.Clear();  
@@ -46,7 +47,7 @@ namespace WPF_LoginForm.Views
         public void LoadGrid()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Departamentos WHERE estado_eliminar = 1", con);
+            SqlCommand cmd = new SqlCommand("SELECT departamento_id as 'ID Departamento', departamento_nombre as 'Departamento', departamento_descripcion as 'Descripción', departamento_ubicacion as 'Ubicación', departamento_telefono as 'Telefono', departamento_email as 'Email' FROM Departamentos WHERE estado_eliminar = 1", con);
             DataTable dt = new DataTable();
             SqlDataReader sdr = cmd.ExecuteReader();
             dt.Load(sdr);
@@ -61,6 +62,7 @@ namespace WPF_LoginForm.Views
             // Convertir el DataTable en una DataView y asignarla al DataGrid.
             DataView view = dt.DefaultView;
             dataDep_grid.ItemsSource = dt.DefaultView;
+            //dataDep_grid.Columns[0].Visibility = Visibility.Hidden; // Ocultar la columna 'departamento_id'.
 
         }
 
@@ -136,7 +138,7 @@ namespace WPF_LoginForm.Views
         {
             if (existId())
             {
-                int depId = Convert.ToInt32(search_txt.Text);
+                int depId = Convert.ToInt32(idDep_txt.Text);
                 con.Open();
                 SqlCommand cmd = new SqlCommand("UPDATE Departamentos SET estado_eliminar = 0 WHERE departamento_id = @depId", con);
                 cmd.Parameters.AddWithValue("@depId", depId);
@@ -164,7 +166,7 @@ namespace WPF_LoginForm.Views
         {
             if (existId() && isValid())
             {
-                int depId = Convert.ToInt32(search_txt.Text);
+                int depId = Convert.ToInt32(idDep_txt.Text);
                 long telDep = Convert.ToInt64(telDep_txt.Text);
                 con.Open();
                 SqlCommand cmd = new SqlCommand("UPDATE Departamentos SET departamento_nombre = '" + nombreDep_txt.Text + "', departamento_descripcion = '" + descripDep_txt.Text + "', departamento_ubicacion = '" + ubicDep_txt.Text + "', departamento_telefono = '" + telDep + "', departamento_email = '" + emailDep_txt.Text + "' WHERE departamento_id = '" + depId + "' ", con);
@@ -189,7 +191,7 @@ namespace WPF_LoginForm.Views
 
         private bool existId()
         {
-            if (search_txt.Text == string.Empty)
+            if (idDep_txt.Text == string.Empty)
             {
                 MessageBox.Show("Ingrese primero un ID para actualizar, eliminar u obtener los datos", "Actualizar o Eliminar ID", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
@@ -197,36 +199,32 @@ namespace WPF_LoginForm.Views
             return true;
         }
 
-        private void obtenerBtn_Click(object sender, RoutedEventArgs e)
+
+        private void dataDep_grid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (existId())
+            try
             {
-                int depId = Convert.ToInt32(search_txt.Text);
-                con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Departamentos WHERE departamento_id = " + depId + " ", con);
-                try
+                if (dataDep_grid.SelectedItems.Count > 0)
                 {
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    while (dr.Read())
+                    var selectedRow = dataDep_grid.SelectedItems[0] as DataRowView;
+                    if (selectedRow != null)
                     {
-                        nombreDep_txt.Text = dr["departamento_nombre"].ToString();
-                        descripDep_txt.Text = dr["departamento_descripcion"].ToString();
-                        ubicDep_txt.Text = dr["departamento_ubicacion"].ToString();
-                        telDep_txt.Text = dr["departamento_telefono"].ToString();
-                        emailDep_txt.Text = dr["departamento_email"].ToString();
+                        idDep_txt.Text = selectedRow.Row.ItemArray[0].ToString();
+                        nombreDep_txt.Text = selectedRow.Row.ItemArray[1].ToString();
+                        descripDep_txt.Text = selectedRow.Row.ItemArray[2].ToString();
+                        ubicDep_txt.Text = selectedRow.Row.ItemArray[3].ToString();
+                        telDep_txt.Text = selectedRow.Row.ItemArray[4].ToString();
+                        emailDep_txt.Text = selectedRow.Row.ItemArray[5].ToString();
                     }
-                    con.Close();
-                }
-                catch (SqlException ex)
+                } else
                 {
-                    MessageBox.Show("No se pudo obtener los datos" + ex.Message);
-                }
-                finally
-                {
-                    con.Close();
-                }
-            }
+                    clearData();
+                }          
             
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message + " - " + ex.Source);
+            }
         }
     }
 }
