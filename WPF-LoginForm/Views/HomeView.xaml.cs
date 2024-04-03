@@ -45,7 +45,7 @@ namespace WPF_LoginForm.Views
         {
             con.Open();
             // Especifica las columnas explícitamente y coloca 'empleado_id' primero.
-            SqlCommand cmd = new SqlCommand("SELECT empleado_id, empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id FROM Empleados", con);
+            SqlCommand cmd = new SqlCommand("SELECT empleado_id, empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id, estado_eliminar FROM Empleados WHERE estado_eliminar = 1", con);
             DataTable dt = new DataTable();
             SqlDataReader dr = cmd.ExecuteReader();
             dt.Load(dr);
@@ -100,7 +100,7 @@ namespace WPF_LoginForm.Views
                 return false;
             }
             return true;
-        }   
+        }
 
         private void btnAgregar_Click(object sender, RoutedEventArgs e)
         {
@@ -109,7 +109,7 @@ namespace WPF_LoginForm.Views
                 if (isValid())
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("insert into Empleados (empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id) values (@nombre, @apellido, @cedula, @correo, @salario, @cargo, @departamento)", con);
+                    SqlCommand cmd = new SqlCommand("insert into Empleados (empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id, estado_eliminar) values (@nombre, @apellido, @cedula, @correo, @salario, @cargo, @departamento, @estadoEliminar)", con);
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@nombre", nombre_txt.Text);
                     cmd.Parameters.AddWithValue("@apellido", apellido_txt.Text);
@@ -118,20 +118,20 @@ namespace WPF_LoginForm.Views
                     cmd.Parameters.AddWithValue("@salario", decimal.Parse(salario_txt.Text));
                     cmd.Parameters.AddWithValue("@cargo", cargo_txt.Text);
                     cmd.Parameters.AddWithValue("@departamento", 1);
+                    cmd.Parameters.AddWithValue("@estadoEliminar", 1);
                     cmd.ExecuteNonQuery();
                     con.Close();
                     CargarDatos();
                     MessageBox.Show("Empleado agregado correctamente", "Agregado", MessageBoxButton.OK, MessageBoxImage.Information);
                     limpiar();
                 }
-
             }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
+
 
         private bool existId()
         {
@@ -148,15 +148,16 @@ namespace WPF_LoginForm.Views
             if (existId())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("delete from Empleados where empleado_id = " + search_txt.Text + " ", con);
+                // Actualizar en lugar de eliminar
+                SqlCommand cmd = new SqlCommand("update Empleados set estado_eliminar = 0 where empleado_id = @empleadoId", con);
+                cmd.Parameters.AddWithValue("@empleadoId", search_txt.Text);
                 try
                 {
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Empleado ha sido eliminado", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Empleado ha sido marcado como eliminado", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
                     con.Close();
                     limpiar();
                     CargarDatos();
-                    con.Close();
                 }
                 catch (SqlException ex)
                 {
@@ -167,8 +168,8 @@ namespace WPF_LoginForm.Views
                     con.Close();
                 }
             }
-            
         }
+
 
         private void btnObtener_Click(object sender, RoutedEventArgs e)
         {
