@@ -67,12 +67,16 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="ViewModels\BossesViewModel.cs" />
     <Compile Include="ViewModels\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelCommand.cs" />
+    <Compile Include="Views\BossesView.xaml.cs">
+      <DependentUpon>BossesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DepartmentView.xaml.cs">
       <DependentUpon>DepartmentView.xaml</DependentUpon>
     </Compile>
@@ -98,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\UIColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BossesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

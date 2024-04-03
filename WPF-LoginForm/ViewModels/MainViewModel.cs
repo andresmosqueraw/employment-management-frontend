@@ -72,6 +72,8 @@ namespace WPF_LoginForm.ViewModels
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowCustomerViewCommand { get; }
+        public ICommand ShowBossesViewCommand { get; }
+
         public MainViewModel()
         {
             userRepository = new UserRepository();
@@ -80,6 +82,7 @@ namespace WPF_LoginForm.ViewModels
             //Initialize commands
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
+            ShowBossesViewCommand = new ViewModelCommand(ExecuteShowBossesViewCommand);
             
             //Default view
             ExecuteShowHomeViewCommand(null);
@@ -95,6 +98,12 @@ namespace WPF_LoginForm.ViewModels
         {
             CurrentChildView = new HomeViewModel();
             Caption = "Dashboard";
+            Icon = IconChar.Home;
+        }
+        private void ExecuteShowBossesViewCommand(object obj)
+        {
+            CurrentChildView = new BossesViewModel();
+            Caption = "Bosses";
             Icon = IconChar.Home;
         }
 

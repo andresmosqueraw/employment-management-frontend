@@ -27,6 +27,10 @@
             <local:CustomerView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:BossesViewModel}">
+            <local:BossesView/>
+        </DataTemplate>
+
     </Window.Resources>
 
     <Border CornerRadius="10"                    
@@ -103,6 +107,16 @@
 
                     </RadioButton>
 
+                    <RadioButton Style="{StaticResource menuButton}"
+             Tag="{StaticResource color2}"
+             Command="{Binding ShowBossesViewCommand}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Style="{StaticResource menuButtonText}"><Run Language="en-gb" Text="Jefes"/></TextBlock>
+                        </StackPanel>
+
+                    </RadioButton>
 
                 </StackPanel>
 
