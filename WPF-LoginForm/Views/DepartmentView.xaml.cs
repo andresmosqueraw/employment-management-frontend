@@ -46,7 +46,7 @@ namespace WPF_LoginForm.Views
         public void LoadGrid()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Departamentos", con);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Departamentos WHERE estado_eliminar = 1", con);
             DataTable dt = new DataTable();
             SqlDataReader sdr = cmd.ExecuteReader();
             dt.Load(sdr);
@@ -108,7 +108,7 @@ namespace WPF_LoginForm.Views
             {
                 if (isValid())
                 {
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Departamentos (departamento_nombre, departamento_descripcion, departamento_ubicacion, departamento_telefono, departamento_email) VALUES (@departamento_nombre, @departamento_descripcion, @departamento_ubicacion, @departamento_telefono, @departamento_email)", con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Departamentos (departamento_nombre, departamento_descripcion, departamento_ubicacion, departamento_telefono, departamento_email, estado_eliminar) VALUES (@departamento_nombre, @departamento_descripcion, @departamento_ubicacion, @departamento_telefono, @departamento_email, 1)", con);
                     long telDep = Convert.ToInt64(telDep_txt.Text);
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@departamento_nombre", nombreDep_txt.Text);
@@ -116,6 +116,7 @@ namespace WPF_LoginForm.Views
                     cmd.Parameters.AddWithValue("@departamento_ubicacion", ubicDep_txt.Text);
                     cmd.Parameters.AddWithValue("@departamento_telefono", telDep);
                     cmd.Parameters.AddWithValue("@departamento_email", emailDep_txt.Text);
+
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -137,7 +138,8 @@ namespace WPF_LoginForm.Views
             {
                 int depId = Convert.ToInt32(search_txt.Text);
                 con.Open();
-                SqlCommand cmd = new SqlCommand("DELETE FROM Departamentos WHERE departamento_id =" + depId + " ", con);
+                SqlCommand cmd = new SqlCommand("UPDATE Departamentos SET estado_eliminar = 0 WHERE departamento_id = @depId", con);
+                cmd.Parameters.AddWithValue("@depId", depId);
                 try
                 {
                     cmd.ExecuteNonQuery();
@@ -145,15 +147,17 @@ namespace WPF_LoginForm.Views
                     con.Close();
                     clearData();
                     LoadGrid();
-                    con.Close();
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show("No eliminado correctamente" + ex.Message);
+                    MessageBox.Show("No se pudo eliminar correctamente: " + ex.Message);
                 }
-                finally { con.Close(); }
+                finally
+                {
+                    con.Close();
+                }
+
             }
-            
         }
 
         private void updateBtn_Click(object sender, RoutedEventArgs e)
