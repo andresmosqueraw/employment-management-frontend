@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="WPF_LoginForm.Views.BossesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPF_LoginForm.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1100"
+      >
+
+    <UserControl.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+
+        <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#EAB01E"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#EAB01E"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#F1CA68"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#F1CA68"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RoundedTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="10">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="118*"/>
+            <RowDefinition Height="207*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblCount" Content="" HorizontalAlignment="Left" Margin="42,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+        <Label Content="Jefes de departamento" HorizontalAlignment="Left" Margin="427,-11,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="32" Foreground="White"/>
+        <Label Content="Nombre" HorizontalAlignment="Left" Margin="20,226,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Grid.RowSpan="2"/>
+        <Label Content="Descripción" HorizontalAlignment="Left" Margin="23,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Grid.Row="1"/>
+        <Label Content="Ubicación" HorizontalAlignment="Left" Margin="26,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Grid.Row="1"/>
+        <Label Content="Contacto" HorizontalAlignment="Left" Margin="27,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Grid.Row="1"/>
+        <Label Content="Email" HorizontalAlignment="Left" Margin="28,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Grid.Row="1"/>
+        <Label Content="ID a eliminar, &#xD;&#xA;actualizar u &#xD;&#xA;Obtener" HorizontalAlignment="Left" Margin="28,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="82" Width="102"/>
+
+        <TextBox x:Name="nombreDep_txt" HorizontalAlignment="Left" Margin="144,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
+        <TextBox x:Name="descripDep_txt" HorizontalAlignment="Left" Margin="144,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
+        <TextBox x:Name="ubicDep_txt" HorizontalAlignment="Left" Margin="144,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
+        <TextBox x:Name="telDep_txt" HorizontalAlignment="Left" Margin="144,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
+        <TextBox x:Name="emailDep_txt" HorizontalAlignment="Left" Margin="144,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
+        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Margin="160,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+
+        <DataGrid x:Name="dataDep_grid" Margin="373,84,106,106" Grid.RowSpan="2" />
+
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="insertBtn" Content="Agregar Jefe" HorizontalAlignment="Left" Margin="42,313,0,0" VerticalAlignment="Top" Height="45" Width="177" Click="insertBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold" Grid.Row="1"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="updateBtn" Content="Actualizar Jefe" HorizontalAlignment="Left" Margin="247,313,0,0" VerticalAlignment="Top" Height="45" Width="190" Click="updateBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold" Grid.Row="1"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="deleteBtn" Content="Eliminar Jefe" HorizontalAlignment="Left" Margin="451,313,0,0" VerticalAlignment="Top" Height="45" Width="180" Click="deleteBtn_Click" Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold" Grid.Row="1"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="cleanBtn" Content="Limpiar campos" HorizontalAlignment="Left" Margin="657,313,0,0" VerticalAlignment="Top" Height="45" Width="135" RenderTransformOrigin="0.511,0.556" Click="cleanBtn_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold" Grid.Row="1"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="cleanBtnCopy" Content="Obtener Campos" HorizontalAlignment="Left" Margin="31,155,0,0" VerticalAlignment="Top" Height="45" Width="135" RenderTransformOrigin="0.511,0.556" Click="obtenerBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+    </Grid>
+
+
+</UserControl>

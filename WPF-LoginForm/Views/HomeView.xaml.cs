@@ -44,13 +44,23 @@ namespace WPF_LoginForm.Views
         public void CargarDatos()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("select * from Empleados", con);
+            // Especifica las columnas explícitamente y coloca 'empleado_id' primero.
+            SqlCommand cmd = new SqlCommand("SELECT empleado_id, empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id, estado_eliminar FROM Empleados WHERE estado_eliminar = 1", con);
             DataTable dt = new DataTable();
             SqlDataReader dr = cmd.ExecuteReader();
             dt.Load(dr);
             con.Close();
-            datagrid.ItemsSource = dt.DefaultView;
-        }   
+
+            // Usar LINQ para contar las filas en el DataTable.
+            int rowCount = dt.AsEnumerable().Count(); // Uso de LINQ aquí.
+
+            // Actualizar el contenido del Label para mostrar el recuento de filas.
+            lblCount.Content = $"Total de empleados: {rowCount}";
+
+            // Convertir el DataTable en una DataView y asignarla al DataGrid.
+            DataView view = dt.DefaultView;
+            datagrid.ItemsSource = view;
+        }
 
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)
         {
@@ -90,7 +100,7 @@ namespace WPF_LoginForm.Views
                 return false;
             }
             return true;
-        }   
+        }
 
         private void btnAgregar_Click(object sender, RoutedEventArgs e)
         {
@@ -99,7 +109,7 @@ namespace WPF_LoginForm.Views
                 if (isValid())
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("insert into Empleados (empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id) values (@nombre, @apellido, @cedula, @correo, @salario, @cargo, @departamento)", con);
+                    SqlCommand cmd = new SqlCommand("insert into Empleados (empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id, estado_eliminar) values (@nombre, @apellido, @cedula, @correo, @salario, @cargo, @departamento, @estadoEliminar)", con);
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@nombre", nombre_txt.Text);
                     cmd.Parameters.AddWithValue("@apellido", apellido_txt.Text);
@@ -108,99 +118,122 @@ namespace WPF_LoginForm.Views
                     cmd.Parameters.AddWithValue("@salario", decimal.Parse(salario_txt.Text));
                     cmd.Parameters.AddWithValue("@cargo", cargo_txt.Text);
                     cmd.Parameters.AddWithValue("@departamento", 1);
+                    cmd.Parameters.AddWithValue("@estadoEliminar", 1);
                     cmd.ExecuteNonQuery();
                     con.Close();
                     CargarDatos();
                     MessageBox.Show("Empleado agregado correctamente", "Agregado", MessageBoxButton.OK, MessageBoxImage.Information);
                     limpiar();
                 }
-
             }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
 
+
+        private bool existId()
+        {
+            if (search_txt.Text == string.Empty)
+            {
+                MessageBox.Show("Ingrese primero un ID para actualizar, eliminar u obtener los datos", "Actualizar o Eliminar ID", MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
         }
 
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = new SqlCommand("delete from Empleados where empleado_id = " + search_txt.Text + " ", con);
-            try
+            if (existId())
             {
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Empleado ha sido eliminado", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
-                con.Close();
-                limpiar();
-                CargarDatos();
-                con.Close();
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("No fue eliminado" + ex.Message);
-            }
-            finally
-            {
-                con.Close();
+                con.Open();
+                // Actualizar en lugar de eliminar
+                SqlCommand cmd = new SqlCommand("update Empleados set estado_eliminar = 0 where empleado_id = @empleadoId", con);
+                cmd.Parameters.AddWithValue("@empleadoId", search_txt.Text);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Empleado ha sido marcado como eliminado", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                    con.Close();
+                    limpiar();
+                    CargarDatos();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("No fue eliminado" + ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
             }
         }
 
+
         private void btnObtener_Click(object sender, RoutedEventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = new SqlCommand("select * from Empleados where empleado_id = " + search_txt.Text + " ", con);
-            try
+            if (existId())
             {
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * from Empleados where empleado_id = " + search_txt.Text + " ", con);
+                try
                 {
-                    nombre_txt.Text = dr["empleado_nombre"].ToString();
-                    apellido_txt.Text = dr["empleado_apellido"].ToString();
-                    cedula_txt.Text = dr["empleado_cedula"].ToString();
-                    correo_txt.Text = dr["empleado_email"].ToString();
-                    salario_txt.Text = dr["empleado_salario"].ToString();
-                    cargo_txt.Text = dr["empleado_cargo"].ToString();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        nombre_txt.Text = dr["empleado_nombre"].ToString();
+                        apellido_txt.Text = dr["empleado_apellido"].ToString();
+                        cedula_txt.Text = dr["empleado_cedula"].ToString();
+                        correo_txt.Text = dr["empleado_email"].ToString();
+                        salario_txt.Text = dr["empleado_salario"].ToString();
+                        cargo_txt.Text = dr["empleado_cargo"].ToString();
+                    }
+                    con.Close();
                 }
-                con.Close();
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("No se pudo obtener los datos" + ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("No se pudo obtener los datos" + ex.Message);
-            }
-            finally
-            {
-                con.Close();
-            }   
+               
         }
 
         private void btnEditar_Click(object sender, RoutedEventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = new SqlCommand("update Empleados set empleado_nombre = @nombre, empleado_apellido = @apellido, empleado_cedula = @cedula, empleado_email = @correo, empleado_salario = @salario, empleado_cargo = @cargo where empleado_id = " + search_txt.Text + " ", con);
-            try
+            if (existId() && isValid())
             {
-                cmd.Parameters.AddWithValue("@nombre", nombre_txt.Text);
-                cmd.Parameters.AddWithValue("@apellido", apellido_txt.Text);
-                cmd.Parameters.AddWithValue("@cedula", cedula_txt.Text);
-                cmd.Parameters.AddWithValue("@correo", correo_txt.Text);
-                cmd.Parameters.AddWithValue("@salario", decimal.Parse(salario_txt.Text));
-                cmd.Parameters.AddWithValue("@cargo", cargo_txt.Text);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Empleado ha sido actualizado", "Updated", MessageBoxButton.OK, MessageBoxImage.Information);
-                con.Close();
-                limpiar();
-                CargarDatos();
-                con.Close();
+                con.Open();
+                SqlCommand cmd = new SqlCommand("update Empleados set empleado_nombre = @nombre, empleado_apellido = @apellido, empleado_cedula = @cedula, empleado_email = @correo, empleado_salario = @salario, empleado_cargo = @cargo where empleado_id = " + search_txt.Text + " ", con);
+                try
+                {
+                    cmd.Parameters.AddWithValue("@nombre", nombre_txt.Text);
+                    cmd.Parameters.AddWithValue("@apellido", apellido_txt.Text);
+                    cmd.Parameters.AddWithValue("@cedula", cedula_txt.Text);
+                    cmd.Parameters.AddWithValue("@correo", correo_txt.Text);
+                    cmd.Parameters.AddWithValue("@salario", decimal.Parse(salario_txt.Text));
+                    cmd.Parameters.AddWithValue("@cargo", cargo_txt.Text);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Empleado ha sido actualizado", "Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                    con.Close();
+                    limpiar();
+                    CargarDatos();
+                    con.Close();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("No fue actualizado" + ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("No fue actualizado" + ex.Message);
-            }
-            finally
-            {
-                con.Close();
-            }
+            
         }
     }
 }
