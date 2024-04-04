@@ -70,7 +70,7 @@ namespace WPF_LoginForm.ViewModels
             }
         }
         //--> Commands
-        public ICommand ShowHomeViewCommand { get; }
+        public ICommand ShowEmpleadoViewCommand { get; }
         public ICommand ShowCustomerViewCommand { get; }
         public ICommand ShowBossesViewCommand { get; }
 
@@ -80,12 +80,12 @@ namespace WPF_LoginForm.ViewModels
             CurrentUserAccount = new UserAccountModel();
 
             //Initialize commands
-            ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
+            ShowEmpleadoViewCommand = new ViewModelCommand(ExecuteShowEmpleadoViewCommand);
             ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
             ShowBossesViewCommand = new ViewModelCommand(ExecuteShowBossesViewCommand);
-            
+
             //Default view
-            ExecuteShowHomeViewCommand(null);
+            ExecuteShowEmpleadoViewCommand(null);
             LoadCurrentUserData();
         }
         private void ExecuteShowCustomerViewCommand(object obj)
@@ -94,9 +94,9 @@ namespace WPF_LoginForm.ViewModels
             Caption = "Customers";
             Icon = IconChar.UserGroup;
         }
-        private void ExecuteShowHomeViewCommand(object obj)
+        private void ExecuteShowEmpleadoViewCommand(object obj)
         {
-            CurrentChildView = new HomeViewModel();
+            CurrentChildView = new EmpleadoViewModel();
             Caption = "Dashboard";
             Icon = IconChar.Home;
         }

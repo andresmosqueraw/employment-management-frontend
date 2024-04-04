@@ -19,8 +19,8 @@
 
     <Window.Resources>
 
-        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-            <local:HomeView/>
+        <DataTemplate DataType="{x:Type viewModel:EmpleadoViewModel}">
+            <local:EmpleadoView/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewModel:DepartmentsViewModel}">
@@ -86,7 +86,7 @@
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
                                  IsChecked="True"
-                                 Command="{Binding ShowHomeViewCommand}">
+                                 Command="{Binding ShowEmpleadoViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>

@@ -95,14 +95,12 @@
         <Label Content="Ubicación" HorizontalAlignment="Left" Margin="26,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Grid.Row="1"/>
         <Label Content="Contacto" HorizontalAlignment="Left" Margin="27,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Grid.Row="1"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="28,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Grid.Row="1"/>
-        <Label Content="ID a eliminar, &#xD;&#xA;actualizar u &#xD;&#xA;Obtener" HorizontalAlignment="Left" Margin="28,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="82" Width="102"/>
 
         <TextBox x:Name="nombreDep_txt" HorizontalAlignment="Left" Margin="144,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
         <TextBox x:Name="descripDep_txt" HorizontalAlignment="Left" Margin="144,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
         <TextBox x:Name="ubicDep_txt" HorizontalAlignment="Left" Margin="144,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
         <TextBox x:Name="telDep_txt" HorizontalAlignment="Left" Margin="144,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
         <TextBox x:Name="emailDep_txt" HorizontalAlignment="Left" Margin="144,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" Grid.Row="1"/>
-        <TextBox x:Name="search_txt" HorizontalAlignment="Left" Margin="160,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
 
         <DataGrid x:Name="dataDep_grid" Margin="373,84,106,106" Grid.RowSpan="2" />
 
@@ -110,7 +108,6 @@
         <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="updateBtn" Content="Actualizar Jefe" HorizontalAlignment="Left" Margin="247,313,0,0" VerticalAlignment="Top" Height="45" Width="190" Click="updateBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold" Grid.Row="1"/>
         <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="deleteBtn" Content="Eliminar Jefe" HorizontalAlignment="Left" Margin="451,313,0,0" VerticalAlignment="Top" Height="45" Width="180" Click="deleteBtn_Click" Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold" Grid.Row="1"/>
         <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="cleanBtn" Content="Limpiar campos" HorizontalAlignment="Left" Margin="657,313,0,0" VerticalAlignment="Top" Height="45" Width="135" RenderTransformOrigin="0.511,0.556" Click="cleanBtn_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold" Grid.Row="1"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="cleanBtnCopy" Content="Obtener Campos" HorizontalAlignment="Left" Margin="31,155,0,0" VerticalAlignment="Top" Height="45" Width="135" RenderTransformOrigin="0.511,0.556" Click="obtenerBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
     </Grid>
 
 

@@ -14,15 +14,20 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace WPF_LoginForm.Views
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for EmpleadoView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class EmpleadoView : UserControl
     {
-        public HomeView()
+
+        private string selectedEmpleadoId = string.Empty;
+
+
+        public EmpleadoView()
         {
             InitializeComponent();
             CargarDatos();
@@ -38,14 +43,13 @@ namespace WPF_LoginForm.Views
             correo_txt.Clear();
             salario_txt.Clear();
             cargo_txt.Clear();
-            search_txt.Clear();
         }
 
         public void CargarDatos()
         {
             con.Open();
             // Especifica las columnas explícitamente y coloca 'empleado_id' primero.
-            SqlCommand cmd = new SqlCommand("SELECT empleado_id, empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id, estado_eliminar FROM Empleados WHERE estado_eliminar = 1", con);
+            SqlCommand cmd = new SqlCommand("SELECT empleado_id AS 'ID', empleado_nombre AS 'Nombre', empleado_apellido AS 'Apellido', empleado_cedula AS 'Cédula', empleado_email AS 'Correo', empleado_salario AS 'Salario', empleado_cargo AS 'Cargo' FROM Empleados WHERE estado_eliminar = 1", con);
             DataTable dt = new DataTable();
             SqlDataReader dr = cmd.ExecuteReader();
             dt.Load(dr);
@@ -57,9 +61,20 @@ namespace WPF_LoginForm.Views
             // Actualizar el contenido del Label para mostrar el recuento de filas.
             lblCount.Content = $"Total de empleados: {rowCount}";
 
-            // Convertir el DataTable en una DataView y asignarla al DataGrid.
+            // Convertir el DataTable en una DataView y asignarla al datagrid_empleados.
             DataView view = dt.DefaultView;
-            datagrid.ItemsSource = view;
+            datagrid_empleados.ItemsSource = view;
+
+
+            datagrid_empleados.AutoGeneratingColumn += (s, e) =>
+            {
+                if (e.Column.Header.ToString() == "ID")
+                {
+                    // Ocultar la columna 'ID'
+                    e.Column.Visibility = Visibility.Collapsed;
+                }
+                // Aquí puedes agregar más lógica si deseas personalizar otros encabezados o propiedades de columna
+            };
         }
 
         private void btnLimpiar_Click(object sender, RoutedEventArgs e)
@@ -109,7 +124,7 @@ namespace WPF_LoginForm.Views
                 if (isValid())
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("insert into Empleados (empleado_nombre, empleado_apellido, empleado_cedula, empleado_email, empleado_salario, empleado_cargo, departamento_id, estado_eliminar) values (@nombre, @apellido, @cedula, @correo, @salario, @cargo, @departamento, @estadoEliminar)", con);
+                    SqlCommand cmd = new SqlCommand("insert into Empleados (Nombre, Apellido, Apellido, Correo, Salario, Cargo, departamento_id, estado_eliminar) values (@nombre, @apellido, @cedula, @correo, @salario, @cargo, @departamento, @estadoEliminar)", con);
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@nombre", nombre_txt.Text);
                     cmd.Parameters.AddWithValue("@apellido", apellido_txt.Text);
@@ -133,24 +148,14 @@ namespace WPF_LoginForm.Views
         }
 
 
-        private bool existId()
-        {
-            if (search_txt.Text == string.Empty)
-            {
-                MessageBox.Show("Ingrese primero un ID para actualizar, eliminar u obtener los datos", "Actualizar o Eliminar ID", MessageBoxButton.OK, MessageBoxImage.Information);
-                return false;
-            }
-            return true;
-        }
-
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            if (existId())
+            if (!string.IsNullOrEmpty(selectedEmpleadoId))
             {
                 con.Open();
                 // Actualizar en lugar de eliminar
-                SqlCommand cmd = new SqlCommand("update Empleados set estado_eliminar = 0 where empleado_id = @empleadoId", con);
-                cmd.Parameters.AddWithValue("@empleadoId", search_txt.Text);
+                SqlCommand cmd = new SqlCommand("update Empleados set estado_eliminar = 0 where ID = @empleadoId", con);
+                cmd.Parameters.AddWithValue("@empleadoId", selectedEmpleadoId);
                 try
                 {
                     cmd.ExecuteNonQuery();
@@ -170,45 +175,12 @@ namespace WPF_LoginForm.Views
             }
         }
 
-
-        private void btnObtener_Click(object sender, RoutedEventArgs e)
-        {
-            if (existId())
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("select * from Empleados where empleado_id = " + search_txt.Text + " ", con);
-                try
-                {
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        nombre_txt.Text = dr["empleado_nombre"].ToString();
-                        apellido_txt.Text = dr["empleado_apellido"].ToString();
-                        cedula_txt.Text = dr["empleado_cedula"].ToString();
-                        correo_txt.Text = dr["empleado_email"].ToString();
-                        salario_txt.Text = dr["empleado_salario"].ToString();
-                        cargo_txt.Text = dr["empleado_cargo"].ToString();
-                    }
-                    con.Close();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("No se pudo obtener los datos" + ex.Message);
-                }
-                finally
-                {
-                    con.Close();
-                }
-            }
-               
-        }
-
         private void btnEditar_Click(object sender, RoutedEventArgs e)
         {
-            if (existId() && isValid())
+            if (!string.IsNullOrEmpty(selectedEmpleadoId) && isValid())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("update Empleados set empleado_nombre = @nombre, empleado_apellido = @apellido, empleado_cedula = @cedula, empleado_email = @correo, empleado_salario = @salario, empleado_cargo = @cargo where empleado_id = " + search_txt.Text + " ", con);
+                SqlCommand cmd = new SqlCommand("update Empleados set Nombre = @nombre, Apellido = @apellido, Apellido = @cedula, Correo = @correo, Salario = @salario, Cargo = @cargo where ID = " + selectedEmpleadoId + " ", con);
                 try
                 {
                     cmd.Parameters.AddWithValue("@nombre", nombre_txt.Text);
@@ -234,6 +206,33 @@ namespace WPF_LoginForm.Views
                 }
             }
             
+        }
+
+        private void datagrid_empleados_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (datagrid_empleados.SelectedItems.Count > 0)
+                {
+                    var selectedRow = datagrid_empleados.SelectedItem as DataRowView;
+                    if (selectedRow != null)
+                    {
+                        selectedEmpleadoId = selectedRow["ID"].ToString();
+                        nombre_txt.Text = selectedRow["Nombre"].ToString();
+                        apellido_txt.Text = selectedRow["Apellido"].ToString();
+                        cedula_txt.Text = selectedRow["Apellido"].ToString();
+                        correo_txt.Text = selectedRow["Correo"].ToString();
+                        salario_txt.Text = selectedRow["Salario"].ToString();
+                        cargo_txt.Text = selectedRow["Cargo"].ToString();
+                    }
+                } else
+                {
+                    limpiar();
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message + " - " + ex.Source);
+            }
         }
     }
 }
