@@ -196,12 +196,14 @@
                                           Foreground="{StaticResource titleColor2}"
                                           Margin="35,0,10,0"/>
 
-                            <TextBlock
-                                       Foreground="{StaticResource titleColor2}"
+                            <TextBlock Foreground="{StaticResource titleColor2}"
                                        FontSize="16"
-                                       FontFamily="Montserrat"
-                                       FontWeight="Medium"
-                                       VerticalAlignment="Center"><Run Language="en-gb" Text="Empleados"/></TextBlock>
+                                        FontFamily="Montserrat"
+                                        FontWeight="Medium"
+                                        VerticalAlignment="Center">
+                                            <Run Language="en-gb" Text="{Binding Caption}"/>
+                            </TextBlock>
+
                         </StackPanel>
 
                         <!--User options-->

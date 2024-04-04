@@ -91,20 +91,21 @@ namespace WPF_LoginForm.ViewModels
         private void ExecuteShowCustomerViewCommand(object obj)
         {
             CurrentChildView = new DepartmentsViewModel();
-            Caption = "Customers";
+            Caption = "Departamentos"; 
             Icon = IconChar.UserGroup;
         }
         private void ExecuteShowEmpleadoViewCommand(object obj)
         {
             CurrentChildView = new EmpleadoViewModel();
-            Caption = "Dashboard";
+            Caption = "Empleados";
             Icon = IconChar.Home;
         }
+
         private void ExecuteShowBossesViewCommand(object obj)
         {
             CurrentChildView = new BossesViewModel();
-            Caption = "Bosses";
-            Icon = IconChar.Home;
+            Caption = "Jefes"; 
+            Icon = IconChar.UserGroup; 
         }
 
         private void LoadCurrentUserData()
