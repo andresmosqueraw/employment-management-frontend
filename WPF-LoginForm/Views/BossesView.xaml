@@ -107,7 +107,7 @@
         <TextBox x:Name="telBoss_txt" HorizontalAlignment="Left" Margin="722,599,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
         <TextBox x:Name="emailBoss_txt" HorizontalAlignment="Left" Margin="722,530,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
 
-        <DataGrid x:Name="dataBoss_grid" Margin="41,42,41,365"  SelectionChanged="datagrid_bosses_SelectionChanged"  SelectionMode="Single"/>
+        <DataGrid x:Name="dataBoss_grid" Margin="41,100,41,307"  SelectionChanged="datagrid_bosses_SelectionChanged"  SelectionMode="Single"/>
 
         <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="insertBtn" Content="Agregar Jefe" HorizontalAlignment="Left" Margin="22,676,0,0" VerticalAlignment="Top" Height="45" Width="178" Click="insertBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
         <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="updateBtn" Content="Actualizar Jefe" HorizontalAlignment="Left" Margin="344,676,0,0" VerticalAlignment="Top" Height="45" Width="190" Click="updateBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
@@ -115,6 +115,9 @@
         <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="cleanBtn"  Content="Limpiar campos" HorizontalAlignment="Left" Margin="1001,676,0,0" VerticalAlignment="Top" Height="45" Width="136" RenderTransformOrigin="0.511,0.556" Click="cleanBtn_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
         <Label Content="Apellido:" HorizontalAlignment="Left" Margin="22,595,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="72"/>
         <TextBox x:Name="apellidoBoss_txt" HorizontalAlignment="Left" Margin="119,599,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <Label Content = "Buscar" HorizontalAlignment="Left" Margin="74,45,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <TextBox x:Name="txtCriterioBusqueda" HorizontalAlignment="Left" Height="23" Margin="150,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="828"  Style="{DynamicResource RoundedTextBoxStyle}"  />
+        <Button Style = "{DynamicResource RoundedButtonStyle}" x:Name="btn_buscar_txtbox" Content="Buscar" HorizontalAlignment="Left" Margin="307,11,0,0" VerticalAlignment="Top" Width="116" Height="27" Click="btnBuscar_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
     </Grid>
 
 
