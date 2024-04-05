@@ -17,11 +17,14 @@ using System.Data;
 
 namespace WPF_LoginForm.Views
 {
-    /// <summary>
-    /// Interaction logic for CustomerView.xaml
-    /// </summary>
+    
     public partial class CustomerView : UserControl
     {
+
+        private string selectedId;
+
+   
+
         public CustomerView()
         {
             InitializeComponent();
@@ -30,7 +33,6 @@ namespace WPF_LoginForm.Views
         SqlConnection con = new SqlConnection("Data Source=34.134.82.88;Database=sistema_empleados;Persist Security Info=True; User ID = admin; Password=admin1235711$!");
         public void clearData()
         {
-            idDep_txt.Clear();
             nombreDep_txt.Clear();
             descripDep_txt.Clear();
             ubicDep_txt.Clear();  
@@ -47,7 +49,7 @@ namespace WPF_LoginForm.Views
         public void LoadGrid()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT departamento_id as 'ID Departamento', departamento_nombre as 'Departamento', departamento_descripcion as 'Descripción', departamento_ubicacion as 'Ubicación', departamento_telefono as 'Telefono', departamento_email as 'Email' FROM Departamentos WHERE estado_eliminar = 1", con);
+            SqlCommand cmd = new SqlCommand("SELECT departamento_id as 'ID', departamento_nombre as 'Departamento', departamento_descripcion as 'Descripcion', departamento_ubicacion as 'Ubicacion', departamento_telefono as 'Telefono', departamento_email as 'Email' FROM Departamentos WHERE estado_eliminar = 1", con);
             DataTable dt = new DataTable();
             SqlDataReader sdr = cmd.ExecuteReader();
             dt.Load(sdr);
@@ -61,8 +63,16 @@ namespace WPF_LoginForm.Views
 
             // Convertir el DataTable en una DataView y asignarla al DataGrid.
             DataView view = dt.DefaultView;
-            dataDep_grid.ItemsSource = dt.DefaultView;
-            //dataDep_grid.Columns[0].Visibility = Visibility.Hidden; // Ocultar la columna 'departamento_id'.
+            dataDep_grid.ItemsSource = view;
+
+            dataDep_grid.AutoGeneratingColumn += (s, e) =>
+            {
+                if (e.Column.Header.ToString() == "ID")
+                {
+                    // Ocultar la columna 'ID'
+                    e.Column.Visibility = Visibility.Collapsed;
+                }
+            };
 
         }
 
@@ -76,19 +86,19 @@ namespace WPF_LoginForm.Views
             }
             if (descripDep_txt.Text == string.Empty)
             {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("La Descripción es requerida", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             if (ubicDep_txt.Text == string.Empty)
             {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("La Ubicación es requerida", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
            
             if (telDep_txt.Text == string.Empty)
             {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Contacto es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             } else if (!long.TryParse(telDep_txt.Text, out telDep)){
                 MessageBox.Show("El Contacto debe ser un valor numérico válido.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -97,7 +107,7 @@ namespace WPF_LoginForm.Views
 
             if (emailDep_txt.Text == string.Empty)
             {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Email es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             return true;
@@ -106,8 +116,7 @@ namespace WPF_LoginForm.Views
         
         private void insertBtn_Click(object sender, RoutedEventArgs e)
         {
-            /*
-                        try
+            try
                         {
                             if (isValid())
                             {
@@ -128,23 +137,21 @@ namespace WPF_LoginForm.Views
                                 clearData();
                             }
 
-                        } catch (SqlException ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    */
+            } catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
 
         }
 
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (existId())
+            if (!string.IsNullOrEmpty(selectedId))
             {
-                int depId = Convert.ToInt32(idDep_txt.Text);
                 con.Open();
                 SqlCommand cmd = new SqlCommand("UPDATE Departamentos SET estado_eliminar = 0 WHERE departamento_id = @depId", con);
-                cmd.Parameters.AddWithValue("@depId", depId);
+                cmd.Parameters.AddWithValue("@depId", selectedId);
                 try
                 {
                     cmd.ExecuteNonQuery();
@@ -167,12 +174,11 @@ namespace WPF_LoginForm.Views
 
         private void updateBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (existId() && isValid())
+            if (!string.IsNullOrEmpty(selectedId) && isValid())
             {
-                int depId = Convert.ToInt32(idDep_txt.Text);
                 long telDep = Convert.ToInt64(telDep_txt.Text);
                 con.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE Departamentos SET departamento_nombre = '" + nombreDep_txt.Text + "', departamento_descripcion = '" + descripDep_txt.Text + "', departamento_ubicacion = '" + ubicDep_txt.Text + "', departamento_telefono = '" + telDep + "', departamento_email = '" + emailDep_txt.Text + "' WHERE departamento_id = '" + depId + "' ", con);
+                SqlCommand cmd = new SqlCommand("UPDATE Departamentos SET departamento_nombre = '" + nombreDep_txt.Text + "', departamento_descripcion = '" + descripDep_txt.Text + "', departamento_ubicacion = '" + ubicDep_txt.Text + "', departamento_telefono = '" + telDep + "', departamento_email = '" + emailDep_txt.Text + "' WHERE departamento_id = '" + selectedId + "' ", con);
                 try
                 {
                     cmd.ExecuteNonQuery();
@@ -192,17 +198,6 @@ namespace WPF_LoginForm.Views
             
         }
 
-        private bool existId()
-        {
-            if (idDep_txt.Text == string.Empty)
-            {
-                MessageBox.Show("Ingrese primero un ID para actualizar, eliminar u obtener los datos", "Actualizar o Eliminar ID", MessageBoxButton.OK, MessageBoxImage.Information);
-                return false;
-            }
-            return true;
-        }
-
-
         private void dataDep_grid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -212,12 +207,12 @@ namespace WPF_LoginForm.Views
                     var selectedRow = dataDep_grid.SelectedItems[0] as DataRowView;
                     if (selectedRow != null)
                     {
-                        idDep_txt.Text = selectedRow.Row.ItemArray[0].ToString();
-                        nombreDep_txt.Text = selectedRow.Row.ItemArray[1].ToString();
-                        descripDep_txt.Text = selectedRow.Row.ItemArray[2].ToString();
-                        ubicDep_txt.Text = selectedRow.Row.ItemArray[3].ToString();
-                        telDep_txt.Text = selectedRow.Row.ItemArray[4].ToString();
-                        emailDep_txt.Text = selectedRow.Row.ItemArray[5].ToString();
+                        selectedId = selectedRow["ID"].ToString();
+                        nombreDep_txt.Text = selectedRow["Departamento"].ToString();
+                        descripDep_txt.Text = selectedRow["Descripcion"].ToString();
+                        ubicDep_txt.Text = selectedRow["Ubicacion"].ToString();
+                        telDep_txt.Text = selectedRow["Telefono"].ToString();
+                        emailDep_txt.Text = selectedRow["Email"].ToString();
                     }
                 } else
                 {

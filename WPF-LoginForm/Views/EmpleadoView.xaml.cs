@@ -73,7 +73,6 @@ namespace WPF_LoginForm.Views
                     // Ocultar la columna 'ID'
                     e.Column.Visibility = Visibility.Collapsed;
                 }
-                // Aquí puedes agregar más lógica si deseas personalizar otros encabezados o propiedades de columna
             };
         }
 
