@@ -64,7 +64,7 @@ namespace WPF_LoginForm.Views
 
             // Convertir el DataTable en una DataView y asignarla al DataGrid.
             DataView view = dt.DefaultView;
-            dataBoss_grid.ItemsSource = dt.DefaultView;
+            dataBoss_grid.ItemsSource = view;
 
         }
 
@@ -241,5 +241,50 @@ namespace WPF_LoginForm.Views
         }
 
 
+        public void BuscarJefes(string criterio)
+        {
+            if (string.IsNullOrWhiteSpace(criterio))
+            {
+                LoadGrid(); // Carga todos los datos si el criterio de búsqueda está vacío
+                return;
+            }
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT jefe_id AS 'ID', jefe_nombre AS 'Nombre', jefe_apellido AS 'Apellido', jefe_celular AS 'Celular', jefe_email AS 'Correo', jefe_salario AS 'Salario', descripcion AS 'Cargo' FROM jefe_departamento  WHERE estado_eliminar = 1", con);
+            DataTable dt = new DataTable();
+            SqlDataReader dr = cmd.ExecuteReader();
+            dt.Load(dr);
+            con.Close();
+
+            // Filtrar usando LINQ
+            var query = dt.AsEnumerable().Where(row =>
+                row.Field<string>("Nombre").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Apellido").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Celular").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Correo").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<decimal>("Salario").ToString().IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Cargo").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            DataView view;
+            if (query.Any())
+            {
+                var resultados = query.CopyToDataTable();
+                view = resultados.DefaultView;
+            }
+            else
+            {
+                // Manejar el caso en que no hay coincidencias
+                view = new DataView(); // Una DataView vacía o puedes mostrar un mensaje al usuario, según prefieras.
+            }
+
+            dataBoss_grid.ItemsSource = view;
+        }
+
+        // Ejemplo de cómo se podría llamar a BuscarEmpleados desde un evento de clic de botón
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            string criterioBusqueda = txtCriterioBusqueda.Text; // Asume que existe un TextBox txtCriterioBusqueda para ingresar el criterio de búsqueda
+            BuscarJefes(criterioBusqueda);
+        }
     }
 }

@@ -83,7 +83,7 @@
 
 
     <Grid>
-        <Label x:Name="lblCount" Content="" HorizontalAlignment="Left" Margin="70,-8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+        <Label x:Name="lblCount" Content="asdfasdf" HorizontalAlignment="Left" Margin="70,-8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
         <Label Content="Empleados" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="32" Margin="0,-3,0,0"/>
         <Label Content="Nombre" HorizontalAlignment="Left" Margin="56,407,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
         <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="146,411,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"  Style="{DynamicResource RoundedTextBoxStyle}"/>
