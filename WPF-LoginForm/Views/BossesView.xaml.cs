@@ -22,6 +22,9 @@ namespace WPF_LoginForm.Views
     /// </summary>
     public partial class BossesView : UserControl
     {
+
+        private string selectedJefeId = string.Empty;
+
         public BossesView()
         {       
             InitializeComponent();
@@ -30,25 +33,24 @@ namespace WPF_LoginForm.Views
         }
 
         SqlConnection con = new SqlConnection("Data Source=34.134.82.88;Database=sistema_empleados;Persist Security Info=True; User ID = admin; Password=admin1235711$!");
-        public void clearData()
+        public void limpiar()
         {
-            nombreDep_txt.Clear();
-            descripDep_txt.Clear();
-            ubicDep_txt.Clear();
-            telDep_txt.Clear();
-            emailDep_txt.Clear();
-            emailDep_txt.Clear();
+            nombreBoss_txt.Clear();
+            apellidoBoss_txt.Clear();
+            descripBoss_txt.Clear();
+            salarioBoss_txt.Clear();
+            telBoss_txt.Clear();
+            emailBoss_txt.Clear();
         }
-
         private void cleanBtn_Click(object sender, RoutedEventArgs e)
         {
-            clearData();
+            limpiar();
         }
 
-        public void LoadGrid()
+            public void LoadGrid()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Departamentos", con);
+            SqlCommand cmd = new SqlCommand("SELECT jefe_id AS 'ID', jefe_nombre AS 'Nombre', jefe_apellido AS 'Apellido', jefe_celular AS 'Celular', jefe_email AS 'Correo', jefe_salario AS 'Salario', descripcion AS 'Cargo' FROM jefe_departamento  WHERE estado_eliminar = 1", con);
             DataTable dt = new DataTable();
             SqlDataReader sdr = cmd.ExecuteReader();
             dt.Load(sdr);
@@ -58,48 +60,54 @@ namespace WPF_LoginForm.Views
             int rowCount = dt.AsEnumerable().Count(); // Uso de LINQ aquí.
 
             // Actualizar el contenido del Label para mostrar el recuento de filas.
-            lblCount.Content = $"Total de departamentos: {rowCount}";
+            lblCount.Content = $"Total de jefes: {rowCount}";
 
             // Convertir el DataTable en una DataView y asignarla al DataGrid.
             DataView view = dt.DefaultView;
-            dataDep_grid.ItemsSource = dt.DefaultView;
+            dataBoss_grid.ItemsSource = dt.DefaultView;
 
         }
 
-        long telDep;
+        long telBoss;
         public bool isValid()
         {
-            if (nombreDep_txt.Text == string.Empty)
+            if (nombreBoss_txt.Text == string.Empty)
             {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            if (descripDep_txt.Text == string.Empty)
-            {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            if (ubicDep_txt.Text == string.Empty)
-            {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("El nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
-
-            if (telDep_txt.Text == string.Empty)
+            if (apellidoBoss_txt.Text == string.Empty)
             {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("El pellido es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-            else if (!long.TryParse(telDep_txt.Text, out telDep))
+
+            if (descripBoss_txt.Text == string.Empty)
+            {
+                MessageBox.Show("La descripción es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            if (salarioBoss_txt.Text == string.Empty)
+            {
+                MessageBox.Show("El salario es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (telBoss_txt.Text == string.Empty)
+            {
+                MessageBox.Show("El número celular es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            else if (!long.TryParse(telBoss_txt.Text, out telBoss))
             {
                 MessageBox.Show("El Contacto debe ser un valor numérico válido.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
-            if (emailDep_txt.Text == string.Empty)
+            if (emailBoss_txt.Text == string.Empty)
             {
-                MessageBox.Show("Nombre es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("El correo es requerido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             return true;
@@ -112,20 +120,22 @@ namespace WPF_LoginForm.Views
             {
                 if (isValid())
                 {
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Departamentos (departamento_nombre, departamento_descripcion, departamento_ubicacion, departamento_telefono, departamento_email) VALUES (@departamento_nombre, @departamento_descripcion, @departamento_ubicacion, @departamento_telefono, @departamento_email)", con);
-                    long telDep = Convert.ToInt64(telDep_txt.Text);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO jefe_departamento (jefe_nombre, jefe_apellido, jefe_salario, jefe_celular, jefe_email, descripcion,estado_eliminar) VALUES (@jefe_nombre, @jefe_apellido, @jefe_salario, @jefe_celular, @jefe_email,@descripcion, @estadoEliminar)", con);
+                    long telBoss = Convert.ToInt64(telBoss_txt.Text);
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@departamento_nombre", nombreDep_txt.Text);
-                    cmd.Parameters.AddWithValue("@departamento_descripcion", descripDep_txt.Text);
-                    cmd.Parameters.AddWithValue("@departamento_ubicacion", ubicDep_txt.Text);
-                    cmd.Parameters.AddWithValue("@departamento_telefono", telDep);
-                    cmd.Parameters.AddWithValue("@departamento_email", emailDep_txt.Text);
+                    cmd.Parameters.AddWithValue("@jefe_nombre", nombreBoss_txt.Text);
+                    cmd.Parameters.AddWithValue("@jefe_apellido", apellidoBoss_txt.Text);
+                    cmd.Parameters.AddWithValue("@descripcion", descripBoss_txt.Text);
+                    cmd.Parameters.AddWithValue("@jefe_salario", decimal.Parse(salarioBoss_txt.Text));
+                    cmd.Parameters.AddWithValue("@jefe_celular", telBoss);
+                    cmd.Parameters.AddWithValue("@jefe_email", emailBoss_txt.Text);
+                    cmd.Parameters.AddWithValue("@estadoEliminar", 1);
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
                     LoadGrid();
-                    MessageBox.Show("Successfully registered", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
-                    clearData();
+                    MessageBox.Show("El jefe ha sido registrado ", "Agregado", MessageBoxButton.OK, MessageBoxImage.Information);
+                    limpiar();
                 }
 
             }
@@ -136,18 +146,100 @@ namespace WPF_LoginForm.Views
 
         }
 
+
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (!string.IsNullOrEmpty(selectedJefeId))
+            {
+                con.Open();
+                // Actualizar en lugar de eliminar
+                SqlCommand cmd = new SqlCommand("update jefe_departamento set estado_eliminar = 0 where jefe_id = @jefe_id", con);
+                cmd.Parameters.AddWithValue("@jefe_id", selectedJefeId);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Empleado ha sido marcado como eliminado", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                    con.Close();
+                    limpiar();
+                    LoadGrid();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("No fue eliminado" + ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
 
         }
+
 
         private void updateBtn_Click(object sender, RoutedEventArgs e)
         {
-            
-
+            if (!string.IsNullOrEmpty(selectedJefeId) && isValid())
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("update jefe_departamento set jefe_nombre = @jefe_nombre, jefe_apellido = @jefe_apellido, jefe_celular = @jefe_celular, jefe_email = @jefe_email, jefe_salario = @jefe_salario, descripcion = @descripcion where jefe_id = @jefe_id", con);
+                
+                try
+                {
+                    cmd.Parameters.AddWithValue("@jefe_id", selectedJefeId);
+                    cmd.Parameters.AddWithValue("@jefe_nombre", nombreBoss_txt.Text);
+                    cmd.Parameters.AddWithValue("@jefe_apellido", apellidoBoss_txt.Text);
+                    cmd.Parameters.AddWithValue("@jefe_celular", telBoss_txt.Text);
+                    cmd.Parameters.AddWithValue("@jefe_email", emailBoss_txt.Text);
+                    cmd.Parameters.AddWithValue("@jefe_salario", decimal.Parse(salarioBoss_txt.Text));
+                    cmd.Parameters.AddWithValue("@descripcion", descripBoss_txt.Text);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Empleado ha sido actualizado", "Actualizado", MessageBoxButton.OK, MessageBoxImage.Information);
+                    con.Close();
+                    limpiar();
+                    LoadGrid();
+                    con.Close();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("No fue actualizado" + ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
 
     
+        private void datagrid_bosses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (dataBoss_grid.SelectedItems.Count > 0)
+                {
+                    var selectedRow = dataBoss_grid.SelectedItem as DataRowView;
+                    if (selectedRow != null)
+                    {
+                        selectedJefeId = selectedRow["ID"].ToString();
+                        nombreBoss_txt.Text = selectedRow["Nombre"].ToString();
+                        apellidoBoss_txt.Text = selectedRow["Apellido"].ToString();
+                        descripBoss_txt.Text = selectedRow["Cargo"].ToString();
+                        emailBoss_txt.Text = selectedRow["Correo"].ToString();
+                        salarioBoss_txt.Text = selectedRow["Salario"].ToString();
+                        telBoss_txt.Text = selectedRow["Celular"].ToString();
+                    }
+                }
+                else
+                {
+                    limpiar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message + " - " + ex.Source);
+            }
+        }
+
+
     }
 }
