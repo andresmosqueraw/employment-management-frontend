@@ -103,36 +103,39 @@ namespace WPF_LoginForm.Views
             return true;
             
         }
+        
         private void insertBtn_Click(object sender, RoutedEventArgs e)
         {
+            /*
+                        try
+                        {
+                            if (isValid())
+                            {
+                                SqlCommand cmd = new SqlCommand("INSERT INTO Departamentos (departamento_nombre, departamento_descripcion, departamento_ubicacion, departamento_telefono, departamento_email, estado_eliminar) VALUES (@departamento_nombre, @departamento_descripcion, @departamento_ubicacion, @departamento_telefono, @departamento_email, 1)", con);
+                                long telDep = Convert.ToInt64(telDep_txt.Text);
+                                cmd.CommandType = CommandType.Text;
+                                cmd.Parameters.AddWithValue("@departamento_nombre", nombreDep_txt.Text);
+                                cmd.Parameters.AddWithValue("@departamento_descripcion", descripDep_txt.Text);
+                                cmd.Parameters.AddWithValue("@departamento_ubicacion", ubicDep_txt.Text);
+                                cmd.Parameters.AddWithValue("@departamento_telefono", telDep);
+                                cmd.Parameters.AddWithValue("@departamento_email", emailDep_txt.Text);
 
-            try
-            {
-                if (isValid())
-                {
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Departamentos (departamento_nombre, departamento_descripcion, departamento_ubicacion, departamento_telefono, departamento_email, estado_eliminar) VALUES (@departamento_nombre, @departamento_descripcion, @departamento_ubicacion, @departamento_telefono, @departamento_email, 1)", con);
-                    long telDep = Convert.ToInt64(telDep_txt.Text);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@departamento_nombre", nombreDep_txt.Text);
-                    cmd.Parameters.AddWithValue("@departamento_descripcion", descripDep_txt.Text);
-                    cmd.Parameters.AddWithValue("@departamento_ubicacion", ubicDep_txt.Text);
-                    cmd.Parameters.AddWithValue("@departamento_telefono", telDep);
-                    cmd.Parameters.AddWithValue("@departamento_email", emailDep_txt.Text);
+                                con.Open();
+                                cmd.ExecuteNonQuery();
+                                con.Close();
+                                LoadGrid();
+                                MessageBox.Show("Successfully registered", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
+                                clearData();
+                            }
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    LoadGrid();
-                    MessageBox.Show("Successfully registered", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
-                    clearData();
-                }
+                        } catch (SqlException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    */
 
-            } catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
         }
+
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
