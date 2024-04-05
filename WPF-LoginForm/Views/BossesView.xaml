@@ -86,14 +86,14 @@
     <Grid>
         <Label x:Name="lblCount" Content="" HorizontalAlignment="Left" Margin="42,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" Height="42" Width="10"/>
         <Label Content="Jefes de departamento" HorizontalAlignment="Left" Margin="459,-11,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="32" Foreground="White" Height="53" Width="339"/>
-        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="22,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="72"/>
-        <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,530,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="96"/>
-        <Label Content="Salario:" HorizontalAlignment="Left" Margin="625,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Width="169" Height="32"/>
-        <Label Content="Contacto:" HorizontalAlignment="Left" Margin="625,595,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="78"/>
-        <Label Content="Email:" HorizontalAlignment="Left" Margin="671,527,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="51"/>
+        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="47,390,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="72"/>
+        <Label Content="Descripción:" HorizontalAlignment="Left" Margin="47,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="96"/>
+        <Label Content="Salario:" HorizontalAlignment="Left" Margin="650,390,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Width="169" Height="32"/>
+        <Label Content="Contacto:" HorizontalAlignment="Left" Margin="650,525,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="78"/>
+        <Label Content="Email:" HorizontalAlignment="Left" Margin="653,457,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="52"/>
 
-        <TextBox x:Name="nombreBoss_txt" HorizontalAlignment="Left" Margin="119,460,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
-        <TextBox x:Name="descripBoss_txt" HorizontalAlignment="Left" Margin="119,530,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="413" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" RenderTransformOrigin="0.5,0.5">
+        <TextBox x:Name="nombreBoss_txt" HorizontalAlignment="Left" Margin="144,390,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="descripBoss_txt" HorizontalAlignment="Left" Margin="144,460,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="413" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}" RenderTransformOrigin="0.5,0.5">
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -103,18 +103,18 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <TextBox x:Name="salarioBoss_txt" HorizontalAlignment="Left" Margin="722,460,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
-        <TextBox x:Name="telBoss_txt" HorizontalAlignment="Left" Margin="722,599,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
-        <TextBox x:Name="emailBoss_txt" HorizontalAlignment="Left" Margin="722,530,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="salarioBoss_txt" HorizontalAlignment="Left" Margin="747,390,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="telBoss_txt" HorizontalAlignment="Left" Margin="747,529,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <TextBox x:Name="emailBoss_txt" HorizontalAlignment="Left" Margin="747,460,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
 
-        <DataGrid x:Name="dataBoss_grid" Margin="41,42,41,365"  SelectionChanged="datagrid_bosses_SelectionChanged"  SelectionMode="Single"/>
+        <DataGrid x:Name="dataBoss_grid" Margin="41,90,41,365"  SelectionChanged="datagrid_bosses_SelectionChanged"  SelectionMode="Single"/>
 
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="insertBtn" Content="Agregar Jefe" HorizontalAlignment="Left" Margin="22,676,0,0" VerticalAlignment="Top" Height="45" Width="178" Click="insertBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="updateBtn" Content="Actualizar Jefe" HorizontalAlignment="Left" Margin="344,676,0,0" VerticalAlignment="Top" Height="45" Width="190" Click="updateBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="deleteBtn" Content="Eliminar Jefe" HorizontalAlignment="Left" Margin="687,676,0,0" VerticalAlignment="Top" Height="45" Width="180" Click="deleteBtn_Click" Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="cleanBtn"  Content="Limpiar campos" HorizontalAlignment="Left" Margin="1001,676,0,0" VerticalAlignment="Top" Height="45" Width="136" RenderTransformOrigin="0.511,0.556" Click="cleanBtn_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Label Content="Apellido:" HorizontalAlignment="Left" Margin="22,595,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="72"/>
-        <TextBox x:Name="apellidoBoss_txt" HorizontalAlignment="Left" Margin="119,599,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="insertBtn" Content="Agregar Jefe" HorizontalAlignment="Left" Margin="47,606,0,0" VerticalAlignment="Top" Height="45" Width="178" Click="insertBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="updateBtn" Content="Actualizar Jefe" HorizontalAlignment="Left" Margin="369,606,0,0" VerticalAlignment="Top" Height="45" Width="190" Click="updateBtn_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="deleteBtn" Content="Eliminar Jefe" HorizontalAlignment="Left" Margin="712,606,0,0" VerticalAlignment="Top" Height="45" Width="180" Click="deleteBtn_Click" Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="cleanBtn"  Content="Limpiar campos" HorizontalAlignment="Left" Margin="1026,606,0,0" VerticalAlignment="Top" Height="45" Width="136" RenderTransformOrigin="0.511,0.556" Click="cleanBtn_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Label Content="Apellido:" HorizontalAlignment="Left" Margin="47,525,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.611,0.693" FontSize="16" Foreground="White" Height="32" Width="72"/>
+        <TextBox x:Name="apellidoBoss_txt" HorizontalAlignment="Left" Margin="144,529,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="415" Height="26" Foreground="#FF534C4C"  Style="{DynamicResource RoundedTextBoxStyle}"/>
     </Grid>
 
 
