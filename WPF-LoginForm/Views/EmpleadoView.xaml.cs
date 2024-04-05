@@ -234,5 +234,51 @@ namespace WPF_LoginForm.Views
                 MessageBox.Show("Error: " + ex.Message + " - " + ex.Source);
             }
         }
+
+
+        public void BuscarEmpleados(string criterio)
+        {
+            if (string.IsNullOrWhiteSpace(criterio))
+            {
+                CargarDatos(); // Carga todos los datos si el criterio de búsqueda está vacío
+                return;
+            }
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT empleado_id AS 'ID', empleado_nombre AS 'Nombre', empleado_apellido AS 'Apellido', empleado_cedula AS 'Cédula', empleado_email AS 'Correo', empleado_salario AS 'Salario', empleado_cargo AS 'Cargo' FROM Empleados WHERE estado_eliminar = 1", con);
+            DataTable dt = new DataTable();
+            SqlDataReader dr = cmd.ExecuteReader();
+            dt.Load(dr);
+            con.Close();
+
+            // Filtrar usando LINQ
+            var query = dt.AsEnumerable().Where(row =>
+                row.Field<string>("Nombre").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Apellido").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<long>("Cédula").ToString().IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Correo").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Cargo").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            DataView view;
+            if (query.Any())
+            {
+                var resultados = query.CopyToDataTable();
+                view = resultados.DefaultView;
+            }
+            else
+            {
+                // Manejar el caso en que no hay coincidencias
+                view = new DataView(); // Una DataView vacía o puedes mostrar un mensaje al usuario, según prefieras.
+            }
+
+            datagrid_empleados.ItemsSource = view;
+        }
+
+        // Ejemplo de cómo se podría llamar a BuscarEmpleados desde un evento de clic de botón
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            string criterioBusqueda = txtCriterioBusqueda.Text; // Asume que existe un TextBox txtCriterioBusqueda para ingresar el criterio de búsqueda
+            BuscarEmpleados(criterioBusqueda);
+        }
     }
 }
