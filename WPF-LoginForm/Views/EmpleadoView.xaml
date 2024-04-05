@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_LoginForm.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="800" Width="1300">
+             d:DesignHeight="725" Width="1300">
 
     <UserControl.Resources>
         <Style x:Key="FocusVisual">
@@ -85,28 +85,28 @@
     <Grid>
         <Label x:Name="lblCount" Content="" HorizontalAlignment="Left" Margin="70,-8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
         <Label Content="Empleados" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="32" Margin="0,-13,0,0"/>
-        <Label Content="Nombre" HorizontalAlignment="Left" Margin="56,556,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="146,560,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"  Style="{DynamicResource RoundedTextBoxStyle}"/>
-        <Label Content="Apellido" FontSize="16" HorizontalAlignment="Left" Margin="666,552,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="apellido_txt" HorizontalAlignment="Left" Height="23" Margin="756,556,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384"  Style="{DynamicResource RoundedTextBoxStyle}"/>
-        <Label Content="Cedula" FontSize="16" HorizontalAlignment="Left" Margin="56,609,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="cedula_txt" HorizontalAlignment="Left" Height="23" Margin="146,617,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"  Style="{DynamicResource RoundedTextBoxStyle}"/>
-        <Label Content="Correo"  FontSize="16" HorizontalAlignment="Left" Margin="669,613,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="correo_txt" HorizontalAlignment="Left" Height="23" Margin="756,617,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384"  Style="{DynamicResource RoundedTextBoxStyle}"/>
-        <Label Content="Salario" FontSize="16" HorizontalAlignment="Left"  Margin="56,672,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="salario_txt" HorizontalAlignment="Left" Height="23" Margin="146,676,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"  Style="{DynamicResource RoundedTextBoxStyle}"/>
-        <Label Content="Cargo" FontSize="16" HorizontalAlignment="Left" Margin="669,672,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <TextBox x:Name="cargo_txt" HorizontalAlignment="Left" Height="23" Margin="756,676,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <Label Content="Nombre" HorizontalAlignment="Left" Margin="66,406,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <TextBox x:Name="nombre_txt" HorizontalAlignment="Left" Height="23" Margin="156,410,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <Label Content="Apellido" FontSize="16" HorizontalAlignment="Left" Margin="676,402,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="apellido_txt" HorizontalAlignment="Left" Height="23" Margin="766,406,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <Label Content="Cedula" FontSize="16" HorizontalAlignment="Left" Margin="66,459,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="cedula_txt" HorizontalAlignment="Left" Height="23" Margin="156,467,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <Label Content="Correo"  FontSize="16" HorizontalAlignment="Left" Margin="679,463,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="correo_txt" HorizontalAlignment="Left" Height="23" Margin="766,467,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <Label Content="Salario" FontSize="16" HorizontalAlignment="Left"  Margin="66,522,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="salario_txt" HorizontalAlignment="Left" Height="23" Margin="156,526,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"  Style="{DynamicResource RoundedTextBoxStyle}"/>
+        <Label Content="Cargo" FontSize="16" HorizontalAlignment="Left" Margin="679,522,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="cargo_txt" HorizontalAlignment="Left" Height="23" Margin="766,526,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="384"  Style="{DynamicResource RoundedTextBoxStyle}"/>
 
 
-        <DataGrid x:Name="datagrid_empleados" HorizontalAlignment="Left" Height="388" Margin="70,140,0,0" VerticalAlignment="Top" Width="1070" SelectionChanged="datagrid_empleados_SelectionChanged" SelectionMode="Single" />
+        <DataGrid x:Name="datagrid_empleados" HorizontalAlignment="Left" Height="282" Margin="70,80,0,0" VerticalAlignment="Top" Width="1070" SelectionChanged="datagrid_empleados_SelectionChanged" SelectionMode="Single" />
 
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnAgregar" Content="Agregar Empleado" HorizontalAlignment="Left" Margin="70,735,0,0" VerticalAlignment="Top" Width="224" Height="40" Click="btnAgregar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEditar" Content="Editar Empleado" HorizontalAlignment="Left" Margin="369,735,0,0" VerticalAlignment="Top" Width="217" Height="40" Click="btnEditar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEliminar" Content="Eliminar Empleado" HorizontalAlignment="Left" Margin="669,735,0,0" VerticalAlignment="Top" Width="217" Height="40" Click="btnEliminar_Click"  Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnLimpiar" Content="Limpiar Campos" HorizontalAlignment="Left" Margin="938,735,0,0" VerticalAlignment="Top" Width="202" Height="40" Click="btnLimpiar_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
-        <Label Content="Buscar" HorizontalAlignment="Left" Margin="70,97,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
-        <TextBox x:Name="txtCriterioBusqueda" HorizontalAlignment="Left" Height="23" Margin="146,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="828"  Style="{DynamicResource RoundedTextBoxStyle}"  />
-        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btn_buscar_txtbox" Content="Buscar" HorizontalAlignment="Left" Margin="1024,100,0,0" VerticalAlignment="Top" Width="116" Height="27" Click="btnBuscar_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnAgregar" Content="Agregar Empleado" HorizontalAlignment="Left" Margin="80,578,0,0" VerticalAlignment="Top" Width="224" Height="40" Click="btnAgregar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEditar" Content="Editar Empleado" HorizontalAlignment="Left" Margin="379,578,0,0" VerticalAlignment="Top" Width="217" Height="40" Click="btnEditar_Click" Background="#0250B9" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnEliminar" Content="Eliminar Empleado" HorizontalAlignment="Left" Margin="679,578,0,0" VerticalAlignment="Top" Width="217" Height="40" Click="btnEliminar_Click"  Background="#A93331" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btnLimpiar" Content="Limpiar Campos" HorizontalAlignment="Left" Margin="948,578,0,0" VerticalAlignment="Top" Width="202" Height="40" Click="btnLimpiar_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
+        <Label Content="Buscar" HorizontalAlignment="Left" Margin="70,37,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <TextBox x:Name="txtCriterioBusqueda" HorizontalAlignment="Left" Height="23" Margin="146,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="828"  Style="{DynamicResource RoundedTextBoxStyle}"  />
+        <Button Style="{DynamicResource RoundedButtonStyle}" x:Name="btn_buscar_txtbox" Content="Buscar" HorizontalAlignment="Left" Margin="1024,40,0,0" VerticalAlignment="Top" Width="116" Height="27" Click="btnBuscar_Click" Background="#198754" Foreground="White" FontSize="15" FontWeight="DemiBold"/>
     </Grid>
 </UserControl>

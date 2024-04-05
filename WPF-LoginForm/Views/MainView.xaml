@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="MainWindowView" Height="900" Width="1500"
+        Title="MainWindowView" Height="800" Width="1500"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
@@ -258,7 +258,7 @@
                     <!--Content section / Child views-->
                     <ContentControl Content="{Binding CurrentChildView}"
                                     Grid.Row="2"
-                                    Margin="25"/>
+                                    Margin="25,10,25,40"/>
                 </Grid>
 
             </Border>
