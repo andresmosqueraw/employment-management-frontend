@@ -224,5 +224,54 @@ namespace WPF_LoginForm.Views
                 MessageBox.Show("Error: " + ex.Message + " - " + ex.Source);
             }
         }
+
+
+
+        public void BuscarDepartamentos(string criterio)
+        {
+            if (string.IsNullOrWhiteSpace(criterio))
+            {
+                LoadGrid(); // Carga todos los datos si el criterio de búsqueda está vacío
+                return;
+            }
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT departamento_id as 'ID', departamento_nombre as 'Departamento', departamento_descripcion as 'Descripcion', departamento_ubicacion as 'Ubicacion', departamento_telefono as 'Telefono', departamento_email as 'Email' FROM Departamentos WHERE estado_eliminar = 1", con);
+            DataTable dt = new DataTable();
+            SqlDataReader dr = cmd.ExecuteReader();
+            dt.Load(dr);
+            con.Close();
+
+            // Filtrar usando LINQ
+            var query = dt.AsEnumerable().Where(row =>
+                row.Field<string>("Departamento").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Descripcion").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Ubicacion").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<long>("Telefono").ToString().IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0
+                || row.Field<string>("Email").IndexOf(criterio, StringComparison.OrdinalIgnoreCase) >= 0);
+
+
+            DataView view;
+            if (query.Any())
+            {
+                var resultados = query.CopyToDataTable();
+                view = resultados.DefaultView;
+            }
+            else
+            {
+                // Manejar el caso en que no hay coincidencias
+                view = new DataView(); // Una DataView vacía o puedes mostrar un mensaje al usuario, según prefieras.
+            }
+
+            dataDep_grid.ItemsSource = view;
+        }
+
+        // Ejemplo de cómo se podría llamar a BuscarEmpleados desde un evento de clic de botón
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            string criterioBusqueda = txtCriterioBusqueda.Text; // Asume que existe un TextBox txtCriterioBusqueda para ingresar el criterio de búsqueda
+            BuscarDepartamentos(criterioBusqueda);
+        }
+
     }
 }
